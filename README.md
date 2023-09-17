@@ -29,12 +29,10 @@ Per usual, not sure.
 
 ### Frontend
 
-- [ ] **Add a Modal for Creation of a Project**
-
-  - [ ] Implement modal structure
-  - [ ] Add form fields for project details
-  - [ ] Wire up form submission to API
-
+- [x] **Add a Modal for Creation of a Project**
+  - [x] Implement modal structure
+  - [x] Add form fields for project details
+  - [x] Wire up form submission to API
 - [ ] **Extract Input into a Component**
   - [ ] Identify common properties and behavior for the input component
   - [ ] Implement the input component
@@ -48,8 +46,8 @@ Per usual, not sure.
 
 - [ ] **Delete Functionality**
   - [x] Add boilerplate for delete icon
-  - [ ] Add API endpoint for deleting a project
-  - [ ] Implement frontend logic for deletion (confirmation dialog, API call)
+  - [x] Add API endpoint for deleting a project
+  - [x] Implement frontend logic for deletion (confirmation dialog, API call)
   - [ ] Deleting a project should delete the associated media with it
 - [ ] **Edit Name Functionality**
   - [ ] Add API endpoint for editing project name

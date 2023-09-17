@@ -28,11 +28,13 @@ export const bindDialogControls = (
 
 export const openDialog = (
   dialogType: DialogType,
-  callback: DialogState["callback"]
+  callback?: DialogState["callback"]
 ) => {
   dialogProxy.type = dialogType;
   dialogProxy.showFn?.();
-  dialogProxy.callback = callback;
+  if (callback) {
+    dialogProxy.callback = callback;
+  }
 };
 
 export const closeDialog = () => {
