@@ -6,9 +6,7 @@ Per usual, not sure.
 
 ## Client - this repo
 
-![Bun Framework](https://user-images.githubusercontent.com/709451/182802334-d9c42afe-f35d-4a7b-86ea-9985f73f20c3.png)
-
-- [Bun Website](https://bun.sh/)
+- [Bun](https://bun.sh/)
 - React and Vite. Regarding React, at some point the intent is to re-write with different front end and compare. Hopefully we get there.
 - [Daisy](https://daisyui.com/)
 - [valtio](https://valtio.pmnd.rs/)
