@@ -1,15 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fetchProjects = (callback: (arg: any) => void) => {
+const fetchProjects = () =>
   fetch("/api/projects?populate=*", {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      callback(data.data);
-    });
-};
+  }).then((r) => r.json());
 
 const deleteUpload = (id: number) =>
   fetch(`/api/upload/files/${id}`, {
@@ -35,11 +30,17 @@ const createProject = async (formData: FormData) =>
     body: formData,
   }).then((r) => r.json());
 
+const deleteProject = async (id: number) =>
+  fetch(`/api/projects/${id}`, {
+    method: "DELETE",
+  }).then((r) => r.json());
+
 const api = {
   fetchProjects,
   downloadImage,
   deleteUpload,
   createProject,
+  deleteProject,
 };
 
 export default api;

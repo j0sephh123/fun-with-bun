@@ -9,8 +9,8 @@ Per usual, not sure.
 - [Bun](https://bun.sh/)
 - React and Vite. Regarding React, at some point the intent is to re-write with different front end and compare. Hopefully we get there.
 - [Daisy](https://daisyui.com/)
-- [valtio](https://valtio.pmnd.rs/)
-- will try NOT to use tanstack-query for this one
+- [Valtio](https://valtio.pmnd.rs/)
+- [Tanstack-query](https://tanstack.com/query/latest/docs/react/overview) - still not installed, not sure if I want to use it yet.
 
 ## Custom Server
 
@@ -47,8 +47,10 @@ Per usual, not sure.
 ### Backend & Frontend
 
 - [ ] **Delete Functionality**
+  - [x] Add boilerplate for delete icon
   - [ ] Add API endpoint for deleting a project
   - [ ] Implement frontend logic for deletion (confirmation dialog, API call)
+  - [ ] Deleting a project should delete the associated media with it
 - [ ] **Edit Name Functionality**
   - [ ] Add API endpoint for editing project name
   - [ ] Implement frontend logic for editing name (form, API call)
