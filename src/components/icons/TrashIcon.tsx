@@ -1,9 +1,6 @@
-type Props = { onClick: VoidFunction };
-
-export default function TrashIcon({ onClick }: Props) {
+export default function TrashIcon() {
   return (
     <svg
-      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

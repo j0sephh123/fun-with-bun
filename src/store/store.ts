@@ -1,6 +1,6 @@
 import { proxy, useSnapshot } from "valtio";
 
-export type DialogType = "Create" | "Confirm Delete";
+export type DialogType = "Create" | "Confirm Delete" | "Gallery";
 export type DialogState = {
   showFn: (() => void) | undefined;
   closeFn: (() => void) | undefined;

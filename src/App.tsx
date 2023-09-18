@@ -49,13 +49,16 @@ function App() {
               />,
               project.attributes.name,
               new Date(project.attributes.createdAt).toLocaleString(),
-              <TrashIcon
+              <button
                 onClick={() =>
                   openDialog("Confirm Delete", () =>
                     api.deleteProject(project.id).then(refetch)
                   )
                 }
-              />,
+                className="btn btn-square btn-sm"
+              >
+                <TrashIcon />
+              </button>,
             ]}
           />
         ))}

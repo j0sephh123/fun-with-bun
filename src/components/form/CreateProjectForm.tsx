@@ -2,17 +2,25 @@ import { useState } from "react";
 import api from "../../api";
 import { useQueryClient } from "@tanstack/react-query";
 
-
 export default function CreateProjectForm() {
   const queryClient = useQueryClient();
-  
 
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    "https://upload.wikimedia.org/wikipedia/com7/React-icon.svg/1200px-Reacton.png"
+  );
   const [name, setName] = useState("");
 
+  // valid url, but invalid img - https://upload.wikimedia.org/wikipedia/com7/React-icon.svg/1200px-Reacton.png
   const createProject = async () => {
-    const fileBlob = await api.downloadImage(avatar);
-    const toBuffer = await fileBlob.arrayBuffer();
+    const response = await api.downloadImage(avatar);
+
+    // TODO extract status codes
+    if (response.status === 404) {
+      return;
+    }
+
+    const toBuffer = await response.arrayBuffer();
+
     const file = new File([toBuffer], `${name}.png`, { type: "image/png" });
 
     const formData = new FormData();
@@ -24,7 +32,7 @@ export default function CreateProjectForm() {
       .then((data) => {
         console.log("Project created:", data);
         setName("");
-        queryClient.invalidateQueries(['projects.get']);
+        queryClient.invalidateQueries(["projects.get"]);
       })
       .catch((error) => {
         console.error("There was an error creating the project", error);

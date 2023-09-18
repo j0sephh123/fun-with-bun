@@ -17,7 +17,7 @@ export default function DialogWrapper({ children }: Props) {
       ref={refCallback}
       className="modal"
     >
-      <form method="dialog" className="modal-box">
+      <form method="dialog" className="modal-box w-11/12 max-w-5xl">
         {children}
       </form>
       <form method="dialog" className="modal-backdrop">
