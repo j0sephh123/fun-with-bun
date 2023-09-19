@@ -34,3 +34,10 @@ export type ProjectsResponse = {
   data: Project[];
   meta: Meta;
 };
+
+export type Upload = {
+  id: number;
+  url: string;
+  name: string;
+}
+export type UploadsResponse = Upload[];

@@ -5,6 +5,7 @@ import api from "./api";
 import TrashIcon from "./components/icons/TrashIcon";
 import { openDialog } from "./store/store";
 import { ProjectsResponse } from "./types";
+import Avatar from "./Avatar/Avatar";
 
 function App() {
   const { data: projects, refetch } = useQuery<ProjectsResponse>(
@@ -12,22 +13,12 @@ function App() {
     api.fetchProjects
   );
 
-  const deleteUpload = async () => {
-    const result = await api.deleteUpload(17);
-
-    console.log(result);
-  };
-
   if (!projects) {
     return null;
   }
 
   return (
     <>
-      <button onClick={deleteUpload} className="btn btn-secondary btn-block">
-        Delete Upload
-      </button>
-
       <TableWrapper
         isEmpty={projects === undefined || projects.data.length === 0}
       >
@@ -35,18 +26,33 @@ function App() {
           <TableRow
             key={project.id}
             elements={[
-              <img
-                className="mask"
-                src={
-                  project.attributes.avatar?.data
-                    ? "http://localhost:1337" +
-                      project.attributes.avatar.data.attributes.url
-                    : "https://placehold.co/80x80.png"
-                }
-                width={80}
-                height={80}
-                alt=""
-              />,
+              <>
+                {project.attributes.avatar?.data ? (
+                  <div className="relative hover:opacity-50 group">
+                    <Avatar avatar={project.attributes.avatar} />
+
+                    <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100">
+                      <button
+                        onClick={() =>
+                          openDialog("Confirm Delete", () =>
+                            api
+                              .deleteUpload(
+                                project.attributes.avatar?.data.id as number
+                              )
+                              .then(() => refetch())
+                          )
+                        }
+                        className="btn btn-square btn-sm"
+                      >
+                        <TrashIcon />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Avatar avatar={project.attributes.avatar} />
+                )}
+              </>,
+
               project.attributes.name,
               new Date(project.attributes.createdAt).toLocaleString(),
               <button

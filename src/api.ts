@@ -15,6 +15,11 @@ const deleteUpload = (id: number) =>
       console.log(data);
     });
 
+const getAllUploads = () =>
+  fetch(`/api/upload/files`, {
+    method: "GET",
+  }).then((r) => r.json());
+
 const downloadImage = async (externalUrl: string) =>
   fetch("/server/image", {
     method: "POST",
@@ -41,6 +46,7 @@ const api = {
   deleteUpload,
   createProject,
   deleteProject,
+  getAllUploads,
 };
 
 export default api;
