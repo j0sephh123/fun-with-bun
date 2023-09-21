@@ -6,6 +6,7 @@ import TrashIcon from "./components/icons/TrashIcon";
 import { openDialog } from "./store/store";
 import { ProjectsResponse } from "./types";
 import Avatar from "./Avatar/Avatar";
+import PlusIcon from "./components/icons/PlusIcon";
 
 function App() {
   const { data: projects, refetch } = useQuery<ProjectsResponse>(
@@ -27,11 +28,11 @@ function App() {
             key={project.id}
             elements={[
               <>
-                {project.attributes.avatar?.data ? (
-                  <div className="relative hover:opacity-50 group">
-                    <Avatar avatar={project.attributes.avatar} />
+                <div className="relative hover:opacity-50 group w-20">
+                  <Avatar avatar={project.attributes.avatar} />
 
-                    <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 flex justify-end items-start opacity-0 group-hover:opacity-100">
+                    {project.attributes.avatar?.data ? (
                       <button
                         onClick={() =>
                           openDialog("Confirm Delete", () =>
@@ -42,17 +43,29 @@ function App() {
                               .then(() => refetch())
                           )
                         }
-                        className="btn btn-square btn-sm"
+                        className="btn btn-square btn-xs"
                       >
                         <TrashIcon />
                       </button>
-                    </div>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          openDialog("Confirm Delete", () =>
+                            api
+                              .deleteUpload(
+                                project.attributes.avatar?.data.id as number
+                              )
+                              .then(() => refetch())
+                          )
+                        }
+                        className="btn btn-square btn-xs"
+                      >
+                        <PlusIcon />
+                      </button>
+                    )}
                   </div>
-                ) : (
-                  <Avatar avatar={project.attributes.avatar} />
-                )}
+                </div>
               </>,
-
               project.attributes.name,
               new Date(project.attributes.createdAt).toLocaleString(),
               <button

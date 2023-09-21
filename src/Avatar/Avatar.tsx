@@ -9,7 +9,6 @@ type Props = {
 export default function Avatar({ avatar }: Props) {
   return (
     <img
-      className="mask"
       src={
         typeof avatar === "string"
           ? `${baseApiUrl}${avatar}`
