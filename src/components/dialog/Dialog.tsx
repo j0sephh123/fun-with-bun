@@ -11,7 +11,8 @@ export default function Dialog() {
     <DialogWrapper>
       {dialog.type === "Create" && <CreateProjectForm />}
       {dialog.type === "Confirm Delete" && <ConfirmDelete />}
-      {dialog.type === "Gallery" && <Gallery />}
+      {dialog.type === "Gallery_View" && <Gallery dialogType="Gallery_View" />}
+      {dialog.type === "Gallery_Pick" && <Gallery dialogType="Gallery_Pick" />}
     </DialogWrapper>
   );
 }

@@ -9,9 +9,8 @@ export default function TheNavbar() {
         <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
       <div className="flex-none gap-2">
-
         <button
-          onClick={() => openDialog("Gallery")}
+          onClick={() => openDialog("Gallery_View")}
           className="btn btn-accent btn-sm"
         >
           Gallery
@@ -25,8 +24,6 @@ export default function TheNavbar() {
           Create Project
           <PlusIcon />
         </button>
-
-
       </div>
     </div>
   );

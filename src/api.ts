@@ -15,8 +15,32 @@ const deleteUpload = (id: number) =>
       console.log(data);
     });
 
+type SetProjectUploadParams = {
+  projectId: number;
+  avatarId: number;
+  onComplete: VoidFunction;
+};
+
+const setProjectUpload = ({
+  projectId,
+  avatarId,
+  onComplete,
+}: SetProjectUploadParams) => {
+  fetch(`/api/projects/${projectId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        avatar: avatarId,
+      },
+    }),
+  }).then(() => onComplete());
+};
+
 const getAllUploads = () =>
-  fetch(`/api/upload/files`, {
+  fetch("/api/upload/files", {
     method: "GET",
   }).then((r) => r.json());
 
@@ -47,6 +71,7 @@ const api = {
   createProject,
   deleteProject,
   getAllUploads,
+  setProjectUpload,
 };
 
 export default api;

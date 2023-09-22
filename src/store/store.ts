@@ -1,18 +1,23 @@
 import { proxy, useSnapshot } from "valtio";
 
-export type DialogType = "Create" | "Confirm Delete" | "Gallery";
+export type DialogType =
+  | "Create"
+  | "Confirm Delete"
+  | "Gallery_View"
+  | "Gallery_Pick";
+
 export type DialogState = {
   showFn: (() => void) | undefined;
   closeFn: (() => void) | undefined;
   type?: DialogType;
-  callback?: VoidFunction;
+  callback?: () => (arg: number) => void | VoidFunction;
 };
 
 export const initialDialogState: DialogState = {
   showFn: undefined,
   closeFn: undefined,
   type: undefined,
-  callback: () => {},
+  callback: () => () => {},
 };
 
 export const dialogProxy = proxy<DialogState>(initialDialogState);
@@ -32,6 +37,7 @@ export const openDialog = (
 ) => {
   dialogProxy.type = dialogType;
   dialogProxy.showFn?.();
+
   if (callback) {
     dialogProxy.callback = callback;
   }

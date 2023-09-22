@@ -1,18 +1,27 @@
+import clsx from "clsx";
 import Avatar from "../../Avatar/Avatar";
 
 type Props = {
   src?: string;
   title: string;
-  onDelete: VoidFunction;
+  onClick: VoidFunction;
+  actionLabel: string;
 };
 
-export default function GalleryItem({ src, title, onDelete }: Props) {
+export default function GalleryItem({
+  src,
+  title,
+  onClick,
+  actionLabel,
+}: Props) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // prevent closing of the modal
 
-    onDelete();
+    onClick();
   };
 
+  // TODO refactor button label/className when we create a button component 
+  // with different variants, so only variant is passed
   return (
     <div className="card card-compact w-44 bg-base-100">
       <figure>
@@ -23,9 +32,12 @@ export default function GalleryItem({ src, title, onDelete }: Props) {
         <div className="card-actions">
           <button
             onClick={handleClick}
-            className="btn btn-error btn-sm text-white"
+            className={clsx(
+              "btn btn-sm text-white",
+              actionLabel === "Delete" ? "btn-error" : "btn-primary"
+            )}
           >
-            Delete
+            {actionLabel}
           </button>
         </div>
       </div>

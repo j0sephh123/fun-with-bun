@@ -2,8 +2,14 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import api from "../../api";
 import { UploadsResponse } from "../../types";
 import GalleryItem from "./GalleryItem";
+import { DialogType, useDialogStore } from "../../store/store";
 
-export default function Gallery() {
+type Props = {
+  dialogType: Extract<DialogType, "Gallery_View" | "Gallery_Pick">;
+};
+
+export default function Gallery({ dialogType }: Props) {
+  const dialog = useDialogStore();
   const { data: uploads, refetch: refetchUploads } = useQuery<UploadsResponse>(
     ["uploads.get"],
     api.getAllUploads
@@ -17,18 +23,30 @@ export default function Gallery() {
     return null;
   }
 
-  console.log(uploads);
-
   return (
     <div className="flex flex-wrap justify-between">
-      {uploads.map((upload) => (
-        <GalleryItem
-          key={upload.id}
-          src={upload.url}
-          title={upload.name}
-          onDelete={() => handleDelete(upload.id)}
-        />
-      ))}
+      {dialogType}
+      {uploads.map((upload) => {
+        console.log(upload);
+
+        const onClick = () => {
+          if (dialogType === "Gallery_Pick") {
+            dialog.callback!()(upload.id);
+          } else {
+            handleDelete(upload.id);
+          }
+        };
+
+        return (
+          <GalleryItem
+            key={upload.id}
+            src={upload.url}
+            title={upload.name}
+            onClick={onClick}
+            actionLabel={dialogType === "Gallery_Pick" ? "Pick" : "Delete"}
+          />
+        );
+      })}
     </div>
   );
 }

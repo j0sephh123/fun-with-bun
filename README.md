@@ -27,35 +27,6 @@ Per usual, not sure.
 
 ## Tasks
 
-### Frontend
-
-- [x] **Add a Modal for Creation of a Project**
-  - [x] Implement modal structure
-  - [x] Add form fields for project details
-  - [x] Wire up form submission to API
-- [ ] **Extract Input into a Component**
-  - [ ] Identify common properties and behavior for the input component
-  - [ ] Implement the input component
-  - [ ] Replace existing input elements with the new component
-- [ ] **Same for Button**
-  - [ ] Identify common properties and behavior for the button component
-  - [ ] Implement the button component
-  - [ ] Replace existing buttons with the new component
-
-### Backend & Frontend
-
-- [ ] **Delete Functionality**
-  - [x] Add boilerplate for delete icon
-  - [x] Add API endpoint for deleting a project
-  - [x] Implement frontend logic for deletion (confirmation dialog, API call)
-  - [ ] Deleting a project should delete the associated media with it
-- [ ] **Edit Name Functionality**
-  - [ ] Add API endpoint for editing project name
-  - [ ] Implement frontend logic for editing name (form, API call)
-- [ ] **Edit Image Functionality**
-  - [ ] Add API endpoint for editing project image
-  - [ ] Implement frontend logic for editing image (file upload, API call)
-- [ ] **Media Gallery View**
-  - [ ] Design gallery layout
-  - [ ] Fetch media items from API
-  - [ ] Render media items in gallery layout
+- [] Upon clicking on a plus icon when hovering on a project image, pick an image from the gallery
+- [] Enable creation of a project when icon is not provided
+- [] when deleting a project image, do not delete the image from the gallery, just the relation
