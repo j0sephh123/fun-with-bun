@@ -39,8 +39,6 @@ function App() {
                       {project.attributes.avatar?.data ? (
                         <button
                           onClick={() =>
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-ignore
                             openDialog("Confirm Delete", () =>
                               api.setProjectUpload({
                                 avatarId: null,
@@ -78,8 +76,6 @@ function App() {
                 new Date(project.attributes.createdAt).toLocaleString(),
                 <button
                   onClick={() =>
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     openDialog("Confirm Delete", () =>
                       api.deleteProject(project.id).then(refetch)
                     )

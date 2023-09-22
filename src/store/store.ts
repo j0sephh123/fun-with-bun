@@ -6,11 +6,16 @@ export type DialogType =
   | "Gallery_View"
   | "Gallery_Pick";
 
+type HigherOrderFunction = () => (arg: number) => void;
+type SimpleVoidFunction = () => void;
+
+export type DialogCallback = HigherOrderFunction | SimpleVoidFunction;
+
 export type DialogState = {
   showFn: (() => void) | undefined;
   closeFn: (() => void) | undefined;
   type?: DialogType;
-  callback?: () => (arg: number) => void | VoidFunction;
+  callback?: DialogCallback;
 };
 
 export const initialDialogState: DialogState = {
