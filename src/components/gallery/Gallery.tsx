@@ -31,11 +31,9 @@ export default function Gallery({ dialogType }: Props) {
 
         const onClick = () => {
           if (dialogType === "Gallery_Pick") {
-            if (typeof dialog.callback === "function") {
-              const innerFunction = dialog.callback();
-              if (typeof innerFunction === "function") {
-                innerFunction(upload.id);
-              }
+            const innerFunction = dialog.callback!();
+            if (typeof innerFunction === "function") {
+              innerFunction(upload.id);
             }
           } else {
             handleDelete(upload.id);

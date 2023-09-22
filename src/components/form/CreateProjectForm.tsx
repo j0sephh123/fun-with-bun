@@ -1,12 +1,28 @@
 import { useState } from "react";
 import api from "../../api";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function CreateProjectForm() {
+  const { mutate: createProject } = useMutation(api.createProject, {
+    onSuccess() {
+      setName("");
+      queryClient.invalidateQueries(["projects.get"]);
+    },
+  });
   const queryClient = useQueryClient();
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
-  const createProject = async () => {
+
+  const handleCreateProject = async () => {
+    const formData = new FormData();
+    formData.append("data", JSON.stringify({ name }));
+
+    // check if avatar is empty, if it is -> make the request only with `name`
+    if (avatar.length === 0) {
+      createProject(formData);
+      return;
+    }
+
     const response = await api.downloadImage(avatar);
 
     // TODO extract status codes
@@ -15,21 +31,10 @@ export default function CreateProjectForm() {
     }
     const toBuffer = await response.arrayBuffer();
     const file = new File([toBuffer], `${name}.png`, { type: "image/png" });
-    const formData = new FormData();
 
-    formData.append("data", JSON.stringify({ name }));
     formData.append("files.avatar", file);
 
-    api
-      .createProject(formData)
-      .then((data) => {
-        console.log("Project created:", data);
-        setName("");
-        queryClient.invalidateQueries(["projects.get"]);
-      })
-      .catch((error) => {
-        console.error("There was an error creating the project", error);
-      });
+    createProject(formData);
   };
 
   return (
@@ -50,7 +55,10 @@ export default function CreateProjectForm() {
         className="input input-bordered w-full mb-4"
       />
 
-      <button onClick={createProject} className="btn btn-primary btn-block">
+      <button
+        onClick={handleCreateProject}
+        className="btn btn-primary btn-block"
+      >
         Submit
       </button>
     </>
