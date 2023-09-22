@@ -42,11 +42,14 @@ function App() {
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
                             openDialog("Confirm Delete", () =>
-                              api
-                                .deleteUpload(
-                                  project.attributes.avatar?.data.id as number
-                                )
-                                .then(() => refetch())
+                              api.setProjectUpload({
+                                avatarId: null,
+                                onComplete: () => {
+                                  refetch();
+                                  closeDialog();
+                                },
+                                projectId: project.id,
+                              })
                             )
                           }
                           className="btn btn-square btn-xs"

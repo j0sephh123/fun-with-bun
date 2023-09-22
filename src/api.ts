@@ -6,6 +6,7 @@ const fetchProjects = () =>
     },
   }).then((r) => r.json());
 
+// not used
 const deleteUpload = (id: number) =>
   fetch(`/api/upload/files/${id}`, {
     method: "DELETE",
@@ -17,7 +18,7 @@ const deleteUpload = (id: number) =>
 
 type SetProjectUploadParams = {
   projectId: number;
-  avatarId: number;
+  avatarId: number | null;
   onComplete: VoidFunction;
 };
 
