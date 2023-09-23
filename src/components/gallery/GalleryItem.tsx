@@ -6,6 +6,7 @@ type Props = {
   title: string;
   onClick: VoidFunction;
   actionLabel: string;
+  isActive?: boolean;
 };
 
 export default function GalleryItem({
@@ -13,6 +14,7 @@ export default function GalleryItem({
   title,
   onClick,
   actionLabel,
+  isActive,
 }: Props) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // prevent closing of the modal
@@ -20,10 +22,15 @@ export default function GalleryItem({
     onClick();
   };
 
-  // TODO refactor button label/className when we create a button component 
+  // TODO refactor button label/className when we create a button component
   // with different variants, so only variant is passed
   return (
-    <div className="card card-compact w-44 bg-base-100">
+    <div
+      className={clsx(
+        "card card-compact w-44 bg-base-100",
+        isActive && "border"
+      )}
+    >
       <figure>
         <Avatar avatar={src ? src : null} />
       </figure>

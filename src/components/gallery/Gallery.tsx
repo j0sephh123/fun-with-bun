@@ -27,8 +27,6 @@ export default function Gallery({ dialogType }: Props) {
     <div className="flex flex-wrap justify-between">
       {dialogType}
       {uploads.map((upload) => {
-        console.log(upload);
-
         const onClick = () => {
           if (dialogType === "Gallery_Pick") {
             const innerFunction = dialog.callback!();

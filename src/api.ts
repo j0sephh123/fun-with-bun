@@ -60,6 +60,18 @@ const createProject = async (formData: FormData) =>
     body: formData,
   }).then((r) => r.json());
 
+const createProjectWithExistingUpload = async (body: {
+  avatar: number;
+  name: string;
+}) =>
+  fetch("/api/projects", {
+    headers: {
+      "Content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ data: body }),
+  }).then((r) => r.json());
+
 const deleteProject = async (id: number) =>
   fetch(`/api/projects/${id}`, {
     method: "DELETE",
@@ -73,6 +85,7 @@ const api = {
   deleteProject,
   getAllUploads,
   setProjectUpload,
+  createProjectWithExistingUpload,
 };
 
 export default api;
