@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import api from "../../api";
+import api from "../../api/api";
 import { UploadsResponse } from "../../types";
 import GalleryItem from "./GalleryItem";
 import { DialogType, useDialogStore } from "../../store/store";

@@ -27,9 +27,16 @@ Per usual, not sure.
 
 ## Tasks
 
-- [x] Enable creation of a project when avatar is not provided
-- [] when deleting an avatar from the gallery, close the dialog and refetch all projects
+### Todo
+
 - [] when hovering on an avatar add edit button so we dont have to do 2 steps do delete and then add an avatar
-- [] when creating a project, also allow the user to pick from gallery
+
+### In Progress
+
+### Done
+
+- [x] Enable creation of a project when avatar is not provided
+- [x] when deleting an avatar from the gallery, close the dialog and refetch all projects
+- [x] when creating a project, also allow the user to pick from gallery
 - [x] when deleting a project image, do not delete the image from the gallery, just the relation
 - [x] Upon clicking on a plus icon when hovering on a project image, pick an image from the gallery

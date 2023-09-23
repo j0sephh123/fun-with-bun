@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../../api";
+import api from "../../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EmbeddedGallery from "./EmbeddedGallery";
 
