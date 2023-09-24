@@ -24,14 +24,10 @@ class Fetcher extends BaseFetcher {
 
   // projects
   public deleteProject(id: number) {
-    return fetch(`${projectsBaseUrl}/${id}`, {
-      method: "DELETE",
-    });
+    return this.fetchWrapper(`/projects/${id}`, "DELETE");
   }
 
   public async fetchProjects() {
-    console.log("fetchProjects", this);
-
     return this.fetchWrapper(`/projects?populate=*`);
   }
 
