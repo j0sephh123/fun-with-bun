@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../../api/api";
 import { UploadsResponse } from "../../types";
 import GalleryItem from "../gallery/GalleryItem";
+import { fetcherInstance } from "../../api/Fetcher";
 
 type Props = {
   onUploadClick: (arg: number) => void;
@@ -14,7 +14,7 @@ export default function EmbeddedGallery({
 }: Props) {
   const { data: uploads } = useQuery<UploadsResponse>(
     ["uploads.get"],
-    api.getAllUploads
+    fetcherInstance.getAllUploads
   );
 
   if (!uploads) {

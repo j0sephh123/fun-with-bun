@@ -1,10 +1,10 @@
 import { useState } from "react";
-import api from "../../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EmbeddedGallery from "./EmbeddedGallery";
+import { fetcherInstance } from "../../api/Fetcher";
 
 export default function CreateProjectForm() {
-  const { mutate: createProject } = useMutation(api.createProject, {
+  const { mutate: createProject } = useMutation(fetcherInstance.createProject, {
     onSuccess() {
       setName("");
       queryClient.invalidateQueries(["projects.get"]);
@@ -21,7 +21,7 @@ export default function CreateProjectForm() {
     formData.append("data", JSON.stringify({ name }));
 
     if (isPickingFromGallery && typeof selectedUploadId === "number") {
-      api.createProjectWithExistingUpload({
+      fetcherInstance.createProjectWithExistingUpload({
         avatar: selectedUploadId,
         name,
       });
@@ -34,7 +34,7 @@ export default function CreateProjectForm() {
       return;
     }
 
-    const response = await api.downloadImage(avatar);
+    const response = await fetcherInstance.downloadImage(avatar);
 
     // TODO extract status codes
     if (response.status === 404) {

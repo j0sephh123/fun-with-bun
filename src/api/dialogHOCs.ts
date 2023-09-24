@@ -1,5 +1,5 @@
-import api from "./api";
+import { fetcherInstance } from "./Fetcher";
 
 export const prepareProjectAvatarUpdate =
   (projectId: number, onComplete: VoidFunction) => (avatarId: number) =>
-    api.setProjectUpload({ projectId, avatarId, onComplete });
+    fetcherInstance.setProjectUpload({ projectId, avatarId, onComplete });

@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import api from "../../api/api";
 import { UploadsResponse } from "../../types";
 import GalleryItem from "./GalleryItem";
 import { DialogType, useDialogStore } from "../../store/store";
+import { fetcherInstance } from "../../api/Fetcher";
 
 type Props = {
   dialogType: Extract<DialogType, "Gallery_View" | "Gallery_Pick">;
@@ -12,10 +12,10 @@ export default function Gallery({ dialogType }: Props) {
   const dialog = useDialogStore();
   const { data: uploads, refetch: refetchUploads } = useQuery<UploadsResponse>(
     ["uploads.get"],
-    api.getAllUploads
+    fetcherInstance.getAllUploads
   );
 
-  const { mutate: handleDelete } = useMutation(api.deleteUpload, {
+  const { mutate: handleDelete } = useMutation(fetcherInstance.deleteUpload, {
     onSuccess: () => refetchUploads(),
   });
 

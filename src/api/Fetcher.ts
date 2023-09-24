@@ -1,31 +1,41 @@
-// TODO create
-// base fetcher,
-// projects fetcher,
-// upload fetcher,
-// server fetcher
-
+import BaseFetcher from "./BaseFetcher";
 import { SetProjectUploadParams } from "./apiTypes";
 
 const projectsBaseUrl = "/api/projects";
 const uploadsUrl = "/api/upload/files/";
 const serverUrl = "/server";
 
-// TODO add interface as well
-class Fetcher {
+class Fetcher extends BaseFetcher {
+  private static instance: Fetcher;
+
+  private constructor() {
+    super("/api"); // Initialize with the base API URL
+  }
+
+  public static getInstance(): Fetcher {
+    if (!Fetcher.instance) {
+      Fetcher.instance = new Fetcher();
+      Fetcher.instance.fetchProjects = Fetcher.instance.fetchProjects.bind(
+        Fetcher.instance
+      );
+    }
+    return Fetcher.instance;
+  }
+
   // projects
-  public static deleteProject(id: number) {
+  public deleteProject(id: number) {
     return fetch(`${projectsBaseUrl}/${id}`, {
       method: "DELETE",
     });
   }
-  public static fetchProjects() {
-    return fetch(`${projectsBaseUrl}?populate=*`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((r) => r.json());
+
+  public async fetchProjects() {
+    console.log("fetchProjects", this);
+
+    return this.fetchWrapper(`/projects?populate=*`);
   }
-  public static createProjectWithExistingUpload(body: {
+
+  public createProjectWithExistingUpload(body: {
     avatar: number;
     name: string;
   }) {
@@ -37,13 +47,15 @@ class Fetcher {
       body: JSON.stringify({ data: body }),
     }).then((r) => r.json());
   }
-  public static createProject(formData: FormData) {
+
+  public createProject(formData: FormData) {
     return fetch(projectsBaseUrl, {
       method: "POST",
       body: formData,
     });
   }
-  public static setProjectUpload({
+
+  public setProjectUpload({
     projectId,
     avatarId,
     onComplete,
@@ -62,19 +74,20 @@ class Fetcher {
   }
 
   // uploads
-  public static deleteUpload(id: number) {
+  public deleteUpload(id: number) {
     return fetch(`${uploadsUrl}${id}`, {
       method: "DELETE",
     });
   }
-  public static getAllUploads() {
+
+  public getAllUploads() {
     return fetch("/api/upload/files", {
       method: "GET",
     }).then((r) => r.json());
   }
 
   // server
-  public static downloadImage(externalUrl: string) {
+  public downloadImage(externalUrl: string) {
     return fetch(`${serverUrl}/image`, {
       method: "POST",
       body: JSON.stringify({ externalUrl }),
@@ -86,3 +99,5 @@ class Fetcher {
 }
 
 export default Fetcher;
+
+export const fetcherInstance = Fetcher.getInstance();

@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import TableWrapper from "./components/table/TableWrapper";
 import TableRow from "./components/table/TableRow";
-import api from "./api/api";
 import TrashIcon from "./components/icons/TrashIcon";
 import { closeDialog, openDialog } from "./store/store";
 import { ProjectsResponse } from "./types";
 import Avatar from "./Avatar/Avatar";
 import PlusIcon from "./components/icons/PlusIcon";
 import { prepareProjectAvatarUpdate } from "./api/dialogHOCs";
+import { fetcherInstance } from "./api/Fetcher";
 
 function App() {
   const { data: projects, refetch } = useQuery<ProjectsResponse>(
     ["projects.get"],
-    api.fetchProjects
+    fetcherInstance.fetchProjects
   );
 
   if (!projects) {
@@ -37,7 +37,7 @@ function App() {
                       <button
                         onClick={() =>
                           openDialog("Confirm Delete", () =>
-                            api.setProjectUpload({
+                            fetcherInstance.setProjectUpload({
                               avatarId: null,
                               onComplete: () => {
                                 refetch();
@@ -74,7 +74,9 @@ function App() {
               <button
                 onClick={() =>
                   openDialog("Confirm Delete", () =>
-                    api.deleteProject(project.id).then(() => refetch())
+                    fetcherInstance
+                      .deleteProject(project.id)
+                      .then(() => refetch())
                   )
                 }
                 className="btn btn-square btn-sm"
